@@ -5,10 +5,7 @@ package virus;
  * @author FILIOL DE RAIMOND-MICHEL Guillaume
  * Will handle the H5N1 Virus only for duck
  */
-public class H5N1 extends Virus{
-    public H5N1(){}
-    @Override
-    public boolean equals(Object o){
-        return o instanceof H5N1;
+public class H5N1 extends Virus {
+    public H5N1() {
     }
 }
