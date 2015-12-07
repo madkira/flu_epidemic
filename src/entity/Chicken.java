@@ -30,6 +30,17 @@ public class Chicken implements Entity{
      */
     public Chicken(){}
 
+    public void infect(Entity e, Map m){
+        if (e instanceof Chicken){
+
+        }else if (e instanceof Duck){
+
+        }else if (e instanceof Person){
+
+        }else if (e instanceof Pig){
+
+        }
+    }
     /**
      * Default constructor
      * @param status    Starting status
@@ -52,7 +63,7 @@ public class Chicken implements Entity{
             this.setVirus(new H2N1());
             this.setStatus(Status.SICK);
         }else{
-            this.getVirus().time(this, m);
+            this.getVirus().time(m);
         }
     }
 
@@ -93,7 +104,7 @@ public class Chicken implements Entity{
     public void update(Map m){
         Block tmp;
         if (this.getVirus() != null){
-            this.getVirus().time(this, m);
+            this.getVirus().time(m);
 
         }
         if (this.getStatus().equals(Status.CONTAGIOUS)) {
@@ -103,7 +114,7 @@ public class Chicken implements Entity{
                         tmp = m.getBlock(this.getWidth() + i, this.getHeight() + j);
                         Entity e = tmp.getEntity();
                         if (e != null && this.getVirus() != null) {
-                            this.getVirus().infect(this, e, m);
+                            e.infect(this, m);
                         }
                     }
                 }

@@ -65,7 +65,7 @@ public class Duck implements Entity{
     public void update(Map m) {
         Block tmp;
         if (this.getVirus() != null){
-            this.getVirus().time(this, m);
+            this.getVirus().time(m);
 
         }
         if (this.getStatus().equals(Status.CONTAGIOUS)) {

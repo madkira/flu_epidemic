@@ -14,6 +14,7 @@ public interface Entity {
      * Will handle the movement of the entities
      * @param m The map
      */
+    void infect (Entity E, Map m);
     void move(Map m);
         /*
         if (this.getStatus().equals(Status.DEAD))return;
@@ -78,7 +79,6 @@ public interface Entity {
      void contract(Map m);
 
      int getHeight() ;
-
      int getWidth() ;
 
      Virus getVirus() ;

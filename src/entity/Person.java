@@ -132,4 +132,5 @@ public class Person implements Entity{
     public void setStatus(Status status){this.status=status;}
 
     public void setName(String name){this.name=name;}
+
 }
