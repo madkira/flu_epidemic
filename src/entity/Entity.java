@@ -1,12 +1,8 @@
 package entity;
 
 import data.Status;
-import map.Block;
 import map.Map;
 import virus.Virus;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by FILIOL DE RAIMOND-MICHEL Guillaume on 23/11/2015.
@@ -14,16 +10,6 @@ import java.util.Random;
  * Will handle all the entities
  */
 public interface Entity {
-    // Width position
-    int width = 0;
-    // Height position
-    int height = 0;
-    // Virus the entity have
-    Virus virus = null;
-    // Status of the entity
-    Status status=Status.HEALTHY;
-    // Name of the entity
-    String name = null;
     /**
      * Will handle the movement of the entities
      * @param m The map
