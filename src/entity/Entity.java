@@ -15,20 +15,20 @@ import java.util.Random;
  */
 public interface Entity {
     // Width position
-    private int width;
+    int width = 0;
     // Height position
-    private int height;
+    int height = 0;
     // Virus the entity have
-    private Virus virus;
+    Virus virus = null;
     // Status of the entity
-    private Status status=Status.HEALTHY;
+    Status status=Status.HEALTHY;
     // Name of the entity
-    private String name;
+    String name = null;
     /**
      * Will handle the movement of the entities
      * @param m The map
      */
-    public void move(Map m);
+    void move(Map m);
         /*
         if (this.getStatus().equals(Status.DEAD))return;
         ArrayList<Block> possibilities=new ArrayList<>();
@@ -61,7 +61,7 @@ public interface Entity {
      * Will handle the update of the data of the entity, and his neighbours
      * @param m The map
      */
-    public void update(Map m);
+    void update(Map m);
         /*
         Block tmp;
         if (this.getVirus() != null){
@@ -89,25 +89,25 @@ public interface Entity {
      * When an entity contract a virus
      * @param m The map
      */
-    public abstract void contract(Map m);
+     void contract(Map m);
 
-    public int getHeight() ;
+     int getHeight() ;
 
-    public int getWidth() ;
+     int getWidth() ;
 
-    public Virus getVirus() ;
+     Virus getVirus() ;
 
-    public String getName() ;
+     String getName() ;
 
-    public void setHeight(int height) ;
-    public void setWidth(int width) ;
+     void setHeight(int height) ;
+     void setWidth(int width) ;
 
-    public void setVirus(Virus virus) ;
+     void setVirus(Virus virus) ;
 
-    public Status getStatus() ;
+     Status getStatus() ;
 
-    public void setStatus(Status status);
+     void setStatus(Status status);
 
-    public void setName(String name) ;
+     void setName(String name) ;
 
 }
