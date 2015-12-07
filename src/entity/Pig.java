@@ -1,9 +1,13 @@
 package entity;
 
 import data.Status;
+import map.Block;
 import map.Map;
 import virus.H1N1;
 import virus.Virus;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by FILIOL DE RAIMOND-MICHEL Guillaume on 23/11/2015.
@@ -11,6 +15,16 @@ import virus.Virus;
  * Will handle the pigs
  */
 public class Pig implements Entity{
+    // Width position
+    private int width = 0;
+    // Height position
+    private int height = 0;
+    // Virus the entity have
+    private Virus virus = null;
+    // Status of the entity
+    private Status status=Status.HEALTHY;
+    // Name of the entity
+    private String name = null;
     /**
      * Constructor for the equality test
      */
@@ -28,15 +42,6 @@ public class Pig implements Entity{
         if (virus)this.contract(m);
     }
 
-    @Override
-    public void move(Map m) {
-
-    }
-
-    @Override
-    public void update(Map m) {
-
-    }
 
     /**
      * The pig will contract the virus
@@ -52,58 +57,78 @@ public class Pig implements Entity{
         }
     }
 
-    @Override
-    public int getHeight() {
-        return 0;
+    /**
+     * Will handle the person movement
+     * @param m The map
+     */
+    public void move (Map m){
+        if (this.getStatus().equals(Status.DEAD))return;
+        ArrayList<Block> possibilities=new ArrayList<>();
+        int width=this.getWidth();
+        int height=this.getHeight();
+        if (width+1<m.getWidth() && m.getBlock(width+1, height).getEntity() == null){
+            possibilities.add(m.getBlock(width+1, height));
+        }
+        if (height+1<m.getHeight() && m.getBlock(width, height+1).getEntity() == null){
+            possibilities.add(m.getBlock(width, height+1));
+        }
+        if (width-1 >=0 && m.getBlock(width-1, height).getEntity() == null){
+            possibilities.add(m.getBlock(width-1, height));
+        }
+        if (height-1 >=0 && m.getBlock(width, height-1).getEntity() == null){
+            possibilities.add(m.getBlock(width, height-1));
+        }
+        if (possibilities.size()==0)return;
+        Random r=new Random();
+        int rand=(int)r.nextFloat()*possibilities.size();
+        m.remove(width, height);
+        this.setHeight(possibilities.get(rand).getHeight());
+        this.setWidth(possibilities.get(rand).getWidth());
+        m.add(this, this.getWidth(), this.getHeight());
     }
 
-    @Override
-    public int getWidth() {
-        return 0;
+    /**
+     * Will handle the update of the entities
+     * @param m The map
+     */
+    public void update(Map m){
+        Block tmp;
+        if (this.getVirus() != null){
+            this.getVirus().time(this, m);
+
+        }
+        if (this.getStatus().equals(Status.CONTAGIOUS)) {
+            for (int i = -1; i < 2; i++) {
+                for (int j = -1; j < 2; j++) {
+                    if (this.getWidth() + i > 0 && this.getHeight() + j > 0 && this.getWidth() + i < m.getWidth() && this.getHeight() + j < m.getHeight()) {
+                        tmp = m.getBlock(this.getWidth() + i, this.getHeight() + j);
+                        Entity e = tmp.getEntity();
+                        if (e != null && this.getVirus() != null) {
+                            this.getVirus().infect(this, e, m);
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    @Override
-    public Virus getVirus() {
-        return null;
-    }
 
-    @Override
-    public String getName() {
-        return null;
-    }
+    public int getHeight(){return this.height;}
 
-    @Override
-    public void setHeight(int height) {
+    public int getWidth(){return this.width;}
 
-    }
+    public Virus getVirus(){return this.virus;}
 
-    @Override
-    public void setWidth(int width) {
+    public String getName(){return this.name;}
 
-    }
+    public void setHeight(int height){this.height=height;}
+    public void setWidth(int width){this.width=width;}
 
-    @Override
-    public void setVirus(Virus virus) {
+    public void setVirus(Virus virus){this.virus=virus;}
 
-    }
+    public Status getStatus(){return this.status;}
 
-    @Override
-    public Status getStatus() {
-        return null;
-    }
+    public void setStatus(Status status){this.status=status;}
 
-    @Override
-    public void setStatus(Status status) {
-
-    }
-
-    @Override
-    public void setName(String name) {
-
-    }
-
-    @Override
-    public boolean equals(Object o){
-        return o instanceof Pig;
-    }
+    public void setName(String name){this.name=name;}
 }
