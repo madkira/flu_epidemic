@@ -5,10 +5,7 @@ package virus;
  * @author FILIOL DE RAIMOND-MICHEL Guillaume
  * Will handle the H3N1 virus only for person
  */
-public class H3N1 extends Virus{
-    public H3N1(){}
-    @Override
-    public boolean equals(Object o){
-        return o instanceof H3N1;
+public class H3N1 extends Virus {
+    public H3N1() {
     }
 }

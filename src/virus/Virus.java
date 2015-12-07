@@ -69,10 +69,6 @@ public class Virus {
             }
         }
     }
-    @Override
-    public boolean equals(Object o){
-        return o instanceof Virus;
-    }
 
     public int getDay() {
         return day;

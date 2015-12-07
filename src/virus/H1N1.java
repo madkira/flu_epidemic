@@ -7,8 +7,4 @@ package virus;
  */
 public class H1N1 extends Virus{
     public H1N1(){}
-    @Override
-    public boolean equals(Object o){
-        return o instanceof H1N1;
-    }
 }
