@@ -1,40 +1,25 @@
-package entity;
+package entities;
+
 
 import data.Status;
-import map.Block;
 import map.Map;
-import virus.H5N1;
 import virus.Virus;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by FILIOL DE RAIMOND-MICHEL Guillaume on 23/11/2015.
  * @author FILIOL DE RAIMOND-MICHEL Guillaume
- * Will handle the Ducks
+ * Will handle all the entities
  */
-public class Duck implements Entity{
+public interface Entity {
+
+    boolean isPerson();
+    void infect (Entity E, Map m);
     /**
-     * Constructor for the equality test
+     * Will handle the movement of the entities
+     * @param m The map
      */
-    public Duck(){}
-
-    /**
-     * Default constructor
-     * @param status    Starting status
-     * @param virus     Starting virus
-     * @param m         The map
-     */
-    public Duck(Status status, boolean virus, Map m){
-        this.setName("Duck");
-        this.setStatus(status);
-        if (virus) this.contract(m);
-    }
-
-    @Override
-    public void move(Map m) {
-
+    void move(Map m);
+        /*
         if (this.getStatus().equals(Status.DEAD))return;
         ArrayList<Block> possibilities=new ArrayList<>();
         int width=this.getWidth();
@@ -58,14 +43,19 @@ public class Duck implements Entity{
         this.setHeight(possibilities.get(rand).getHeight());
         this.setWidth(possibilities.get(rand).getWidth());
         m.add(this, this.getWidth(), this.getHeight());
+        */
 
-    }
 
-    @Override
-    public void update(Map m) {
+
+    /**
+     * Will handle the update of the data of the entities, and his neighbours
+     * @param m The map
+     */
+    void update(Map m);
+        /*
         Block tmp;
         if (this.getVirus() != null){
-            this.getVirus().time(m);
+            this.getVirus().time(this, m);
 
         }
         if (this.getStatus().equals(Status.CONTAGIOUS)) {
@@ -81,69 +71,32 @@ public class Duck implements Entity{
                 }
             }
         }
-    }
+        */
+
+
 
     /**
-     * The duck will contract the virus
+     * When an entities contract a virus
      * @param m The map
      */
-    @Override
-    public void contract(Map m){
-        if (this.getVirus() == null){
-            this.setVirus(new H5N1());
-            this.setStatus(Status.SICK);
-        }else{
-            this.getVirus().time(this, m);
-        }
-    }
+     void contract(Map m);
 
-    @Override
-    public int getHeight() {
-        return 0;
-    }
+     int getHeight() ;
+     int getWidth() ;
 
-    @Override
-    public int getWidth() {
-        return 0;
-    }
+     Virus getVirus() ;
 
-    @Override
-    public Virus getVirus() {
-        return null;
-    }
+     String getName() ;
 
-    @Override
-    public String getName() {
-        return null;
-    }
+     void setHeight(int height) ;
+     void setWidth(int width) ;
 
-    @Override
-    public void setHeight(int height) {
+     void setVirus(Virus virus) ;
 
-    }
+     Status getStatus() ;
 
-    @Override
-    public void setWidth(int width) {
+     void setStatus(Status status);
 
-    }
+     void setName(String name) ;
 
-    @Override
-    public void setVirus(Virus virus) {
-
-    }
-
-    @Override
-    public Status getStatus() {
-        return null;
-    }
-
-    @Override
-    public void setStatus(Status status) {
-
-    }
-
-    @Override
-    public void setName(String name) {
-
-    }
 }

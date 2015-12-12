@@ -1,7 +1,7 @@
 package map;
 
 import data.Status;
-import entity.Entity;
+import entities.Entity;
 
 import java.util.ArrayList;
 
@@ -21,13 +21,16 @@ public class Map{
     private int width;
     // Height of the map
     private int height;
+    // For the update
+    private int near;
 
     /**
      * Default constructor
      * @param height    Height od the map
      * @param width     Width of the map
      */
-    public Map(int height, int width) {
+    public Map(int height, int width, int near) {
+        this.near=near;
         this.map = new Block[width][height];
         this.setHeight(height);
         this.setWidth(width);
@@ -38,7 +41,7 @@ public class Map{
         }
     }
     /**
-     * Add an entity
+     * Add an entities
      * @param e         Entity to add
      * @param width     Width to add
      * @param height    Height to add
@@ -47,11 +50,10 @@ public class Map{
         e.setWidth(width);
         e.setHeight(height);
         map[width][height].setEntity(e);
-        entities.add(e);
     }
 
     /**
-     * Remove an entity
+     * Remove an entities
      * @param width     Width to remove
      * @param height    Height to remove
      */
@@ -72,7 +74,10 @@ public class Map{
         int cpt1=0;
         int cpt2=0;
         System.out.print(String.format("%-20s", ""));
-        for (int i=0; i<width; i++){System.out.print(String.format("%-20s", cpt1));cpt1++;}
+        for (int i=0; i<width; i++){
+            System.out.print(String.format("%-20s", cpt1));
+            cpt1++;
+        }
         System.out.println();
         for (int i=0; i<width; i++){
             System.out.print(cpt2+"\t\t|");
@@ -114,4 +119,8 @@ public class Map{
     public void setHeight(int height) {
         this.height=height;
     }
+    public void addList(Entity e){entities.add(e);}
+    public ArrayList<Entity> getList(){return entities;}
+    public int getDay(){return day;}
+    public int getNear(){return near;}
 }

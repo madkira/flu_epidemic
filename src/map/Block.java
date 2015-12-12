@@ -1,6 +1,6 @@
 package map;
 
-import entity.Entity;
+import entities.Entity;
 
 /**
  * Created by FILIOL DE RAIMOND-MICHEL Guillaume on 23/11/2015.
@@ -17,7 +17,7 @@ public class Block {
 
     /**
      * Default constructor
-     * @param current   Current entity
+     * @param current   Current entities
      * @param width     Current width
      * @param height    Current height
      */

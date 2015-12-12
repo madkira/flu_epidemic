@@ -1,5 +1,6 @@
 package virus;
 
+import entities.Entity;
 import map.Map;
 
 /**
@@ -8,5 +9,6 @@ import map.Map;
  * Will handle all the virus
  */
 public interface Virus {
-    void time(Map m);
+    void time(Map m, Entity e);
+    void day();
 }

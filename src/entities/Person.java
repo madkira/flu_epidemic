@@ -1,4 +1,4 @@
-package entity;
+package entities;
 
 import data.Status;
 import map.Block;
@@ -19,11 +19,11 @@ public class Person implements Entity{
     private int width = 0;
     // Height position
     private int height = 0;
-    // Virus the entity have
+    // Virus the entities have
     private Virus virus = null;
-    // Status of the entity
+    // Status of the entities
     private Status status=Status.HEALTHY;
-    // Name of the entity
+    // Name of the entities
     private String name = null;
     /**
     /**
@@ -37,11 +37,14 @@ public class Person implements Entity{
      * @param virus     Starting virus
      * @param m         The map
      */
-    public Person(Status status, boolean virus, Map m){
+    public Person(Status status, boolean virus, Map m, int width, int height){
+        this.width=width;
+        this.height=height;
         this.setName("Person");
         this.setStatus(status);
+        m.add(this, width, height);
         if (virus)this.contract(m);
-
+        m.addList(this);
     }
 
     /**
@@ -50,11 +53,11 @@ public class Person implements Entity{
      */
     public void contract(Map m){
         if (this.getVirus() == null){
-            this.setVirus(new H3N1());
-            this.setStatus(Status.SICK);
-        }else{
-            this.getVirus().time(this, m);
+            m.getEntity(this.getWidth(), this.getHeight()).setVirus(new H3N1());
+            m.getEntity(this.getWidth(), this.getHeight()).setStatus(Status.SICK);
 
+        }else{
+            this.getVirus().time(m, this);
         }
     }
 
@@ -63,6 +66,7 @@ public class Person implements Entity{
      * @param m The map
      */
     public void move (Map m){
+        if (this.getStatus() == Status.CONTAGIOUS && m.getDay() %2 == 0)return;
         if (this.getStatus().equals(Status.DEAD))return;
         ArrayList<Block> possibilities=new ArrayList<>();
         int width=this.getWidth();
@@ -93,27 +97,77 @@ public class Person implements Entity{
      * @param m The map
      */
     public void update(Map m){
-        Block tmp;
+        int width =m.getWidth();
+        int height = m.getHeight();
         if (this.getVirus() != null){
-            this.getVirus().time(this, m);
+            this.getVirus().time(m, this);
 
         }
-        if (this.getStatus().equals(Status.CONTAGIOUS)) {
-            for (int i = -1; i < 2; i++) {
-                for (int j = -1; j < 2; j++) {
-                    if (this.getWidth() + i > 0 && this.getHeight() + j > 0 && this.getWidth() + i < m.getWidth() && this.getHeight() + j < m.getHeight()) {
-                        tmp = m.getBlock(this.getWidth() + i, this.getHeight() + j);
-                        Entity e = tmp.getEntity();
-                        if (e != null && this.getVirus() != null) {
-                            this.getVirus().infect(this, e, m);
-                        }
-                    }
+        if (this.getWidth() + 1 < width){
+            Entity e=m.getEntity(this.getWidth() + 1, this.getHeight());
+            if ( e != null){
+                e.infect(this, m);
+            }
+        }
+        if (this.getWidth() - 1 > 0){
+            Entity e=m.getEntity(this.getWidth() - 1, this.getHeight());
+            if ( e != null){
+                e.infect(this, m);
+            }
+        }
+        if (this.getHeight() + 1 < height){
+            Entity e=m.getEntity(this.getWidth(), this.getHeight() + 1);
+            if ( e != null){
+                e.infect(this, m);
+            }
+        }
+        if (this.getHeight() - 1 > 0){
+            Entity e=m.getEntity(this.getWidth(), this.getHeight() - 1);
+            if ( e != null){
+                e.infect(this, m);
+            }
+        }
+        if (m.getNear() == 8){
+            if (this.getWidth() + 1 < width && this.getHeight() + 1 < height){
+                Entity e=m.getEntity(this.getWidth() + 1, this.getHeight() + 1);
+                if ( e != null){
+                    e.infect(this, m);
+                }
+            }
+            if (this.getWidth() - 1 > 0 && this.getHeight() - 1 > 0){
+                Entity e=m.getEntity(this.getWidth() - 1, this.getHeight() - 1);
+                if ( e != null){
+                    e.infect(this, m);
+                }
+            }
+            if (this.getHeight() + 1 < height && this.getWidth() - 1 > 0){
+                Entity e=m.getEntity(this.getWidth() - 1, this.getHeight() + 1);
+                if ( e != null){
+                    e.infect(this, m);
+                }
+            }
+            if (this.getHeight() - 1 > 0 && this.getWidth() + 1 < width){
+                Entity e=m.getEntity(this.getWidth() + 1, this.getHeight() - 1);
+                if ( e != null){
+                    e.infect(this, m);
                 }
             }
         }
+
     }
+    public boolean isPerson(){return true;}
+    public void infect (Entity e, Map m){
+        Random r =new Random();
+        double rand=r.nextDouble();
+        if (e instanceof Person){
+            if (rand < 0.5){
+                this.contract(m);
+            }
 
-
+        }else{
+            if(rand < 0.1)this.contract(m);
+        }
+    }
     public int getHeight(){return this.height;}
 
     public int getWidth(){return this.width;}
