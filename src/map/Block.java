@@ -8,6 +8,7 @@ import entities.Entity;
  * Will handle a block of the map
  */
 public class Block {
+
     // Width position in map
     private int width;
     // Height position in map
@@ -28,14 +29,13 @@ public class Block {
         this.height=height;
     }
 
+    // Setters and Getters
     public Entity getEntity(){return entity;}
     public void setEntity(Entity e){entity =e;}
     public void remove(){entity =null;}
-
     public int getWidth() {
         return width;
     }
-
     public int getHeight() {
         return height;
     }

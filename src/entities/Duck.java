@@ -15,6 +15,7 @@ import java.util.Random;
  * Will handle the Ducks
  */
 public class Duck implements Entity{
+
     // Width position
     private int width = 0;
     // Height position
@@ -25,6 +26,7 @@ public class Duck implements Entity{
     private Status status=Status.HEALTHY;
     // Name of the entities
     private String name = null;
+
     /**
      * Default constructor
      * @param status    Starting status
@@ -41,7 +43,10 @@ public class Duck implements Entity{
         m.addList(this);
     }
 
-    @Override
+    /**
+     * Will handle the movement of the entity
+     * @param m The map
+     */
     public void move(Map m) {
         if (this.getStatus() == Status.CONTAGIOUS && m.getDay() %2 == 0)return;
         if (this.getStatus().equals(Status.DEAD))return;
@@ -68,8 +73,18 @@ public class Duck implements Entity{
         this.setWidth(possibilities.get(rand).getWidth());
         m.add(this, this.getWidth(), this.getHeight());
     }
+
+    /**
+     * Will determinate if the entity is a Person
+     * @return True if she's a Person
+     */
     public boolean isPerson(){return false;}
 
+    /**
+     * Will handle the infection of an entity
+     * @param e  The infective entity
+     * @param m The map
+     */
     public void infect (Entity e, Map m){
         Random r =new Random();
         double rand=r.nextDouble();
@@ -83,7 +98,10 @@ public class Duck implements Entity{
         }
     }
 
-    @Override
+    /**
+     * Will handle the update of the close entities
+     * @param m The map
+     */
     public void update(Map m){
         int width =m.getWidth();
         int height = m.getHeight();
@@ -149,7 +167,6 @@ public class Duck implements Entity{
      * The duck will contract the virus
      * @param m The map
      */
-    @Override
     public void contract(Map m){
         if (this.getVirus() == null){
             m.getEntity(this.getWidth(), this.getHeight()).setVirus(new H5N1());
@@ -159,52 +176,34 @@ public class Duck implements Entity{
         }
     }
 
-    @Override
+    // Setters and Getters
     public int getHeight() {
         return height;
     }
-
-    @Override
     public int getWidth() {
         return width;
     }
-
-    @Override
     public Virus getVirus() {
         return virus;
     }
-
-    @Override
     public String getName() {
         return name;
     }
-
-    @Override
     public void setHeight(int height) {
         this.height=height;
     }
-
-    @Override
     public void setWidth(int width) {
         this.width=width;
     }
-
-    @Override
     public void setVirus(Virus virus) {
         this.virus=virus;
     }
-
-    @Override
     public Status getStatus() {
         return status;
     }
-
-    @Override
     public void setStatus(Status status) {
         this.status=status;
     }
-
-    @Override
     public void setName(String name) {
         this.name=name;
     }

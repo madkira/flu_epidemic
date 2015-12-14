@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * Will handle the global map
  */
 public class Map{
+
     // Current day
     private int day=1;
     //List of all the current entities
@@ -40,6 +41,7 @@ public class Map{
             }
         }
     }
+
     /**
      * Add an entities
      * @param e         Entity to add
@@ -86,11 +88,9 @@ public class Map{
                 Entity e=this.getEntity(i, j);
                 if (e != null){
                     System.out.print(String.format("%-20s", e.getName()+" ["+e.getStatus()+"]"));
-                    try {
                         if (e.isPerson()) {
                             if (!e.getStatus().equals(Status.DEAD) && !e.getStatus().equals(Status.IMMUNE)) ret = false;
                         }
-                    }catch (Exception E){}
                 }
                 else{System.out.print(String.format("%-20s", ""));}
                 System.out.print("|");
@@ -101,6 +101,8 @@ public class Map{
         return ret;
 
     }
+
+    // Setters and Getters
     public Block getBlock(int width, int height){
         return map[width][height];
     }

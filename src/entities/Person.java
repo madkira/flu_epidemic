@@ -15,6 +15,7 @@ import java.util.Random;
  * Will handle all the people
  */
 public class Person implements Entity{
+
     // Width position
     private int width = 0;
     // Height position
@@ -25,11 +26,6 @@ public class Person implements Entity{
     private Status status=Status.HEALTHY;
     // Name of the entities
     private String name = null;
-    /**
-    /**
-     * Constructor for the equality test
-     */
-    public Person(){}
 
     /**
      * Default constructor
@@ -155,7 +151,18 @@ public class Person implements Entity{
         }
 
     }
+
+    /**
+     * Willl determinate if the entity is a Person
+     * @return True if she's a Person
+     */
     public boolean isPerson(){return true;}
+
+    /**
+     * Will handle the infection of an entity
+     * @param e  The infective entity
+     * @param m The map
+     */
     public void infect (Entity e, Map m){
         Random r =new Random();
         double rand=r.nextDouble();
@@ -168,23 +175,17 @@ public class Person implements Entity{
             if(rand < 0.1)this.contract(m);
         }
     }
+
+    // Setters and Getters
     public int getHeight(){return this.height;}
-
     public int getWidth(){return this.width;}
-
     public Virus getVirus(){return this.virus;}
-
     public String getName(){return this.name;}
-
     public void setHeight(int height){this.height=height;}
     public void setWidth(int width){this.width=width;}
-
     public void setVirus(Virus virus){this.virus=virus;}
-
     public Status getStatus(){return this.status;}
-
     public void setStatus(Status status){this.status=status;}
-
     public void setName(String name){this.name=name;}
 
 }

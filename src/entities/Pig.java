@@ -15,6 +15,7 @@ import java.util.Random;
  * Will handle the pigs
  */
 public class Pig implements Entity{
+
     // Width position
     private int width = 0;
     // Height position
@@ -49,7 +50,6 @@ public class Pig implements Entity{
      * The pig will contract the virus
      * @param m The map
      */
-    @Override
     public void contract(Map m){
         if (this.getVirus() == null){
             m.getEntity(this.getWidth(), this.getHeight()).setVirus(new H1N1());
@@ -154,7 +154,18 @@ public class Pig implements Entity{
         }
 
     }
+
+    /**
+     * Will determinate if the entity is a Person
+     * @return True if she's a Person
+     */
     public boolean isPerson(){return false;}
+
+    /**
+     * Will handle the infection of an entity
+     * @param e  The infective entity
+     * @param m The map
+     */
     public void infect (Entity e, Map m){
         Random r =new Random();
         double rand=r.nextDouble();
@@ -167,22 +178,16 @@ public class Pig implements Entity{
             if (rand > 0.25) this.contract(m);
         }
     }
+
+    // Setters and Getters
     public int getHeight(){return this.height;}
-
     public int getWidth(){return this.width;}
-
     public Virus getVirus(){return this.virus;}
-
     public String getName(){return this.name;}
-
     public void setHeight(int height){this.height=height;}
     public void setWidth(int width){this.width=width;}
-
     public void setVirus(Virus virus){this.virus=virus;}
-
     public Status getStatus(){return this.status;}
-
     public void setStatus(Status status){this.status=status;}
-
     public void setName(String name){this.name=name;}
 }
