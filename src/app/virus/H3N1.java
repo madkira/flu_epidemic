@@ -11,13 +11,11 @@ import java.util.Random;
  * @author FILIOL DE RAIMOND-MICHEL Guillaume
  * Will handle the H3N1 app.virus only for person
  */
-public class H3N1 implements Virus {
-    private int CONTAGIOUS=2;
-    private int RECOVERING=5;
-    private int IMMUNE=8;
-    private int day=0;
+public class H3N1 extends Virus {
     public H3N1() {
+        super();
     }
+
     public void time(Map m, Entity e){
         m.getEntity(e.getWidth(), e.getHeight()).getVirus().day();
         if (day > IMMUNE && e.getStatus() == Status.RECOVERING){
@@ -35,5 +33,4 @@ public class H3N1 implements Virus {
             m.getEntity(e.getWidth(), e.getHeight()).setStatus(Status.RECOVERING);
         }
     }
-    public void day(){day++;}
 }
