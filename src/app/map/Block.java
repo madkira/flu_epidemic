@@ -1,24 +1,24 @@
-package map;
+package app.map;
 
-import entities.Entity;
+import app.entities.Entity;
 
 /**
  * Created by FILIOL DE RAIMOND-MICHEL Guillaume on 23/11/2015.
  * @author FILIOL DE RAIMOND-MICHEL Guillaume
- * Will handle a block of the map
+ * Will handle a block of the app.map
  */
 public class Block {
 
-    // Width position in map
+    // Width position in app.map
     private int width;
-    // Height position in map
+    // Height position in app.map
     private int height;
     // Entity in the block
     private Entity entity;
 
     /**
      * Default constructor
-     * @param current   Current entities
+     * @param current   Current app.entities
      * @param width     Current width
      * @param height    Current height
      */

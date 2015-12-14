@@ -1,10 +1,10 @@
-package entities;
+package app.entities;
 
-import data.Status;
-import map.Block;
-import map.Map;
-import virus.H3N1;
-import virus.Virus;
+import app.data.Status;
+import app.map.Block;
+import app.map.Map;
+import app.virus.H3N1;
+import app.virus.Virus;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,18 +20,18 @@ public class Person implements Entity{
     private int width = 0;
     // Height position
     private int height = 0;
-    // Virus the entities have
+    // Virus the app.entities have
     private Virus virus = null;
-    // Status of the entities
+    // Status of the app.entities
     private Status status=Status.HEALTHY;
-    // Name of the entities
+    // Name of the app.entities
     private String name = null;
 
     /**
      * Default constructor
      * @param status    Starting status
-     * @param virus     Starting virus
-     * @param m         The map
+     * @param virus     Starting app.virus
+     * @param m         The app.map
      */
     public Person(Status status, boolean virus, Map m, int width, int height){
         this.width=width;
@@ -44,8 +44,8 @@ public class Person implements Entity{
     }
 
     /**
-     * The person will contract the virus
-     * @param m  The map
+     * The person will contract the app.virus
+     * @param m  The app.map
      */
     public void contract(Map m){
         if (this.getVirus() == null){
@@ -59,7 +59,7 @@ public class Person implements Entity{
 
     /**
      * Will handle the person movement
-     * @param m The map
+     * @param m The app.map
      */
     public void move (Map m){
         if (this.getStatus() == Status.CONTAGIOUS && m.getDay() %2 == 0)return;
@@ -89,8 +89,8 @@ public class Person implements Entity{
     }
 
     /**
-     * Will handle the update of the entities
-     * @param m The map
+     * Will handle the update of the app.entities
+     * @param m The app.map
      */
     public void update(Map m){
         int width =m.getWidth();
@@ -161,7 +161,7 @@ public class Person implements Entity{
     /**
      * Will handle the infection of an entity
      * @param e  The infective entity
-     * @param m The map
+     * @param m The app.map
      */
     public void infect (Entity e, Map m){
         Random r =new Random();

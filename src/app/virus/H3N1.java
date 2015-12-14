@@ -1,15 +1,15 @@
-package virus;
+package app.virus;
 
-import data.Status;
-import entities.Entity;
-import map.Map;
+import app.data.Status;
+import app.entities.Entity;
+import app.map.Map;
 
 import java.util.Random;
 
 /**
  * Created by FILIOL DE RAIMOND-MICHEL Guillaume on 23/11/2015.
  * @author FILIOL DE RAIMOND-MICHEL Guillaume
- * Will handle the H3N1 virus only for person
+ * Will handle the H3N1 app.virus only for person
  */
 public class H3N1 implements Virus {
     private int CONTAGIOUS=2;

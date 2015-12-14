@@ -1,10 +1,10 @@
-package entities;
+package app.entities;
 
-import data.Status;
-import map.Block;
-import map.Map;
-import virus.H2N1;
-import virus.Virus;
+import app.data.Status;
+import app.map.Block;
+import app.map.Map;
+import app.virus.H5N1;
+import app.virus.Virus;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,96 +12,58 @@ import java.util.Random;
 /**
  * Created by FILIOL DE RAIMOND-MICHEL Guillaume on 23/11/2015.
  * @author FILIOL DE RAIMOND-MICHEL Guillaume
- * Will handle the chicken
+ * Will handle the Ducks
  */
-public class Chicken implements Entity{
+public class Duck implements Entity{
 
     // Width position
     private int width = 0;
     // Height position
     private int height = 0;
-    // Virus the entities have
+    // Virus the app.entities have
     private Virus virus = null;
-    // Status of the entities
+    // Status of the app.entities
     private Status status=Status.HEALTHY;
-    // Name of the entities
+    // Name of the app.entities
     private String name = null;
-
-    /**
-     * Will handle the infection of an entity
-     * @param e  The infective entity
-     * @param m The map
-     */
-    public void infect (Entity e, Map m){
-        Random r =new Random();
-        double rand=r.nextDouble();
-        if (e instanceof Chicken){
-            if (rand > 0.1){
-                this.contract(m);
-            }
-
-        }else if (e instanceof Person){
-            if (rand< 0.25) this.contract(m);
-        }
-    }
-
-    /**
-     * Will determine if the entity is a Person
-     * @return True if she's a Person
-     */
-    public boolean isPerson(){return false;}
 
     /**
      * Default constructor
      * @param status    Starting status
-     * @param virus     Starting virus
-     * @param m         The map
+     * @param virus     Starting app.virus
+     * @param m         The app.map
      */
-    public Chicken(Status status, boolean virus, Map m, int width, int height){
+    public Duck(Status status, boolean virus, Map m, int width, int height){
         this.width=width;
         this.height=height;
-        this.setName("Chicken");
+        this.setName("Duck");
         this.setStatus(status);
         m.add(this, width, height);
         if (virus) this.contract(m);
         m.addList(this);
-
     }
 
     /**
-     * The chicken will contract the virus
-     * @param m The map
+     * Will handle the movement of the entity
+     * @param m The app.map
      */
-    public void contract(Map m){
-        if (this.getVirus() == null){
-            m.getEntity(this.getWidth(), this.getHeight()).setVirus(new H2N1());
-            m.getEntity(this.getWidth(), this.getHeight()).setStatus(Status.SICK);
-        }else{
-            this.getVirus().time(m, this);
-        }
-    }
-
-    /**
-     * Will handle the person movement
-     * @param m The map
-     */
-    public void move (Map m){
+    public void move(Map m) {
         if (this.getStatus() == Status.CONTAGIOUS && m.getDay() %2 == 0)return;
         if (this.getStatus().equals(Status.DEAD))return;
         ArrayList<Block> possibilities=new ArrayList<>();
         int width=this.getWidth();
         int height=this.getHeight();
-        if (width+1<m.getWidth() && m.getBlock(width+1, height).getEntity() == null){
-            possibilities.add(m.getBlock(width+1, height));
+        if (width + 1 < m.getWidth() && m.getBlock(width + 1, height).getEntity() == null){
+            possibilities.add(m.getBlock(width + 1, height));
         }
-        if (height+1<m.getHeight() && m.getBlock(width, height+1).getEntity() == null){
-            possibilities.add(m.getBlock(width, height+1));
+        if (height + 1 < m.getHeight() && m.getBlock(width, height + 1).getEntity() == null){
+            possibilities.add(m.getBlock(width, height + 1));
         }
-        if (width-1 >=0 && m.getBlock(width-1, height).getEntity() == null){
-            possibilities.add(m.getBlock(width-1, height));
+        if (width - 1 >= 0 && m.getBlock(width - 1, height).getEntity() == null){
+            possibilities.add(m.getBlock(width - 1, height));
         }
-        if (height-1 >=0 && m.getBlock(width, height-1).getEntity() == null){
-            possibilities.add(m.getBlock(width, height-1));
+        if (height - 1 >= 0 && m.getBlock(width, height - 1).getEntity() == null){
+            possibilities.add(m.getBlock(width, height - 1));
         }
         if (possibilities.size()==0)return;
         Random r=new Random();
@@ -113,12 +75,37 @@ public class Chicken implements Entity{
     }
 
     /**
-     * Will handle the update of the entities for 8 person
-     * @param m The map
+     * Will determinate if the entity is a Person
+     * @return True if she's a Person
+     */
+    public boolean isPerson(){return false;}
+
+    /**
+     * Will handle the infection of an entity
+     * @param e  The infective entity
+     * @param m The app.map
+     */
+    public void infect (Entity e, Map m){
+        Random r =new Random();
+        double rand=r.nextDouble();
+        if (e instanceof Duck){
+            if (rand > 0.1){
+                this.contract(m);
+            }
+
+        }else if (e instanceof Person){
+            if (rand< 0.25) this.contract(m);
+        }
+    }
+
+    /**
+     * Will handle the update of the close app.entities
+     * @param m The app.map
      */
     public void update(Map m){
         int width =m.getWidth();
         int height = m.getHeight();
+        Block tmp;
         if (this.getVirus() != null){
             this.getVirus().time(m, this);
 
@@ -166,7 +153,7 @@ public class Chicken implements Entity{
                     e.infect(this, m);
                 }
             }
-            if (this.getHeight() - 1 < height && this.getWidth() + 1 < width){
+            if (this.getHeight() - 1 > 0 && this.getWidth() + 1 < width){
                 Entity e=m.getEntity(this.getWidth() + 1, this.getHeight() - 1);
                 if ( e != null){
                     e.infect(this, m);
@@ -176,15 +163,48 @@ public class Chicken implements Entity{
 
     }
 
+    /**
+     * The duck will contract the app.virus
+     * @param m The app.map
+     */
+    public void contract(Map m){
+        if (this.getVirus() == null){
+            m.getEntity(this.getWidth(), this.getHeight()).setVirus(new H5N1());
+            m.getEntity(this.getWidth(), this.getHeight()).setStatus(Status.SICK);
+        }else{
+            this.getVirus().time(m, this);
+        }
+    }
+
     // Setters and Getters
-    public int getHeight(){return this.height;}
-    public int getWidth(){return this.width;}
-    public Virus getVirus(){return this.virus;}
-    public String getName(){return this.name;}
-    public void setHeight(int height){this.height=height;}
-    public void setWidth(int width){this.width=width;}
-    public void setVirus(Virus virus){this.virus=virus;}
-    public Status getStatus(){return this.status;}
-    public void setStatus(Status status){this.status=status;}
-    public void setName(String name){this.name=name;}
+    public int getHeight() {
+        return height;
+    }
+    public int getWidth() {
+        return width;
+    }
+    public Virus getVirus() {
+        return virus;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setHeight(int height) {
+        this.height=height;
+    }
+    public void setWidth(int width) {
+        this.width=width;
+    }
+    public void setVirus(Virus virus) {
+        this.virus=virus;
+    }
+    public Status getStatus() {
+        return status;
+    }
+    public void setStatus(Status status) {
+        this.status=status;
+    }
+    public void setName(String name) {
+        this.name=name;
+    }
 }

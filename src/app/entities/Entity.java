@@ -1,14 +1,14 @@
-package entities;
+package app.entities;
 
 
-import data.Status;
-import map.Map;
-import virus.Virus;
+import app.data.Status;
+import app.map.Map;
+import app.virus.Virus;
 
 /**
  * Created by FILIOL DE RAIMOND-MICHEL Guillaume on 23/11/2015.
  * @author FILIOL DE RAIMOND-MICHEL Guillaume
- * Will handle all the entities
+ * Will handle all the app.entities
  */
 public interface Entity {
 
@@ -21,25 +21,25 @@ public interface Entity {
     /**
      * Will handle the infection of an entity
      * @param E  The infective entity
-     * @param m The map
+     * @param m The app.map
      */
     void infect (Entity E, Map m);
 
     /**
-     * Will handle the movement of the entities
-     * @param m The map
+     * Will handle the movement of the app.entities
+     * @param m The app.map
      */
     void move(Map m);
 
     /**
-     * Will handle the update of the data of the entities, and his neighbours
-     * @param m The map
+     * Will handle the update of the app.data of the app.entities, and his neighbours
+     * @param m The app.map
      */
     void update(Map m);
 
     /**
-     * When an entities contract a virus
-     * @param m The map
+     * When an app.entities contract a app.virus
+     * @param m The app.map
      */
      void contract(Map m);
 

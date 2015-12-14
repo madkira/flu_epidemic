@@ -1,34 +1,34 @@
-package map;
+package app.map;
 
-import data.Status;
-import entities.Entity;
+import app.data.Status;
+import app.entities.Entity;
 
 import java.util.ArrayList;
 
 /**
  * Created by FILIOL DE RAIMOND-MICHEL Guillaume on 23/11/2015.
  * @author FILIOL DE RAIMOND-MICHEL Guillaume
- * Will handle the global map
+ * Will handle the global app.map
  */
 public class Map{
 
     // Current day
     private int day=1;
-    //List of all the current entities
+    //List of all the current app.entities
     private ArrayList<Entity> entities=new ArrayList<>();
-    // The current map
+    // The current app.map
     private Block[][] map;
-    // Width of the map
+    // Width of the app.map
     private int width;
-    // Height of the map
+    // Height of the app.map
     private int height;
     // For the update
     private int near;
 
     /**
      * Default constructor
-     * @param height    Height od the map
-     * @param width     Width of the map
+     * @param height    Height od the app.map
+     * @param width     Width of the app.map
      */
     public Map(int height, int width, int near) {
         this.near=near;
@@ -43,7 +43,7 @@ public class Map{
     }
 
     /**
-     * Add an entities
+     * Add an app.entities
      * @param e         Entity to add
      * @param width     Width to add
      * @param height    Height to add
@@ -55,7 +55,7 @@ public class Map{
     }
 
     /**
-     * Remove an entities
+     * Remove an app.entities
      * @param width     Width to remove
      * @param height    Height to remove
      */
@@ -64,7 +64,7 @@ public class Map{
     }
 
     /**
-     * Will print the map in the console and check the end
+     * Will print the app.map in the console and check the end
      * @return True if it's finish
      */
     public boolean end() {

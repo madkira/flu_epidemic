@@ -1,21 +1,20 @@
-package virus;
+package app.virus;
 
-import data.Status;
-import entities.Entity;
-import map.Map;
+import app.data.Status;
+import app.entities.Entity;
+import app.map.Map;
 
 /**
  * Created by FILIOL DE RAIMOND-MICHEL Guillaume on 23/11/2015.
  * @author FILIOL DE RAIMOND-MICHEL Guillaume
- * Will handle the H5N1 Virus only for duck
+ * Will handle the H1N1 Virus, only for pigs
  */
-public class H5N1 implements Virus {
+public class H1N1 implements Virus{
     private int CONTAGIOUS=2;
     private int RECOVERING=5;
     private int IMMUNE=8;
     private int day=0;
-    public H5N1() {
-    }
+    public H1N1(){}
     public void time(Map m, Entity e){
         m.getEntity(e.getWidth(), e.getHeight()).getVirus().day();
         if (day >CONTAGIOUS){

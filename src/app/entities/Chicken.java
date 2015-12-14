@@ -1,10 +1,10 @@
-package entities;
+package app.entities;
 
-import data.Status;
-import map.Block;
-import map.Map;
-import virus.H1N1;
-import virus.Virus;
+import app.data.Status;
+import app.map.Block;
+import app.map.Map;
+import app.virus.H2N1;
+import app.virus.Virus;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,47 +12,69 @@ import java.util.Random;
 /**
  * Created by FILIOL DE RAIMOND-MICHEL Guillaume on 23/11/2015.
  * @author FILIOL DE RAIMOND-MICHEL Guillaume
- * Will handle the pigs
+ * Will handle the chicken
  */
-public class Pig implements Entity{
+public class Chicken implements Entity{
 
     // Width position
     private int width = 0;
     // Height position
     private int height = 0;
-    // Virus the entities have
+    // Virus the app.entities have
     private Virus virus = null;
-    // Status of the entities
+    // Status of the app.entities
     private Status status=Status.HEALTHY;
-    // Name of the entities
+    // Name of the app.entities
     private String name = null;
 
+    /**
+     * Will handle the infection of an entity
+     * @param e  The infective entity
+     * @param m The app.map
+     */
+    public void infect (Entity e, Map m){
+        Random r =new Random();
+        double rand=r.nextDouble();
+        if (e instanceof Chicken){
+            if (rand > 0.1){
+                this.contract(m);
+            }
+
+        }else if (e instanceof Person){
+            if (rand< 0.25) this.contract(m);
+        }
+    }
+
+    /**
+     * Will determine if the entity is a Person
+     * @return True if she's a Person
+     */
+    public boolean isPerson(){return false;}
 
     /**
      * Default constructor
      * @param status    Starting status
-     * @param virus     Starting virus
-     * @param m         The map
+     * @param virus     Starting app.virus
+     * @param m         The app.map
      */
-    public Pig(Status status, boolean virus, Map m, int width, int height){
+    public Chicken(Status status, boolean virus, Map m, int width, int height){
         this.width=width;
         this.height=height;
-        this.setName("Pig");
+        this.setName("Chicken");
         this.setStatus(status);
         m.add(this, width, height);
-        if (virus)this.contract(m);
+        if (virus) this.contract(m);
         m.addList(this);
 
     }
 
-
     /**
-     * The pig will contract the virus
-     * @param m The map
+     * The chicken will contract the app.virus
+     * @param m The app.map
      */
     public void contract(Map m){
         if (this.getVirus() == null){
-            m.getEntity(this.getWidth(), this.getHeight()).setVirus(new H1N1());
+            m.getEntity(this.getWidth(), this.getHeight()).setVirus(new H2N1());
             m.getEntity(this.getWidth(), this.getHeight()).setStatus(Status.SICK);
         }else{
             this.getVirus().time(m, this);
@@ -61,7 +83,7 @@ public class Pig implements Entity{
 
     /**
      * Will handle the person movement
-     * @param m The map
+     * @param m The app.map
      */
     public void move (Map m){
         if (this.getStatus() == Status.CONTAGIOUS && m.getDay() %2 == 0)return;
@@ -91,13 +113,12 @@ public class Pig implements Entity{
     }
 
     /**
-     * Will handle the update of the entities
-     * @param m The map
+     * Will handle the update of the app.entities for 8 person
+     * @param m The app.map
      */
     public void update(Map m){
         int width =m.getWidth();
         int height = m.getHeight();
-        Block tmp;
         if (this.getVirus() != null){
             this.getVirus().time(m, this);
 
@@ -145,7 +166,7 @@ public class Pig implements Entity{
                     e.infect(this, m);
                 }
             }
-            if (this.getHeight() - 1 > 0 && this.getWidth() + 1 < width){
+            if (this.getHeight() - 1 < height && this.getWidth() + 1 < width){
                 Entity e=m.getEntity(this.getWidth() + 1, this.getHeight() - 1);
                 if ( e != null){
                     e.infect(this, m);
@@ -153,30 +174,6 @@ public class Pig implements Entity{
             }
         }
 
-    }
-
-    /**
-     * Will determinate if the entity is a Person
-     * @return True if she's a Person
-     */
-    public boolean isPerson(){return false;}
-
-    /**
-     * Will handle the infection of an entity
-     * @param e  The infective entity
-     * @param m The map
-     */
-    public void infect (Entity e, Map m){
-        Random r =new Random();
-        double rand=r.nextDouble();
-        if (e instanceof Pig){
-            if (rand > 0.1){
-                this.contract(m);
-            }
-
-        }else if (e instanceof Person){
-            if (rand > 0.25) this.contract(m);
-        }
     }
 
     // Setters and Getters

@@ -1,6 +1,8 @@
-import data.Status;
-import entities.*;
-import map.Map;
+package app;
+
+import app.data.Status;
+import app.entities.*;
+import app.map.Map;
 
 import java.util.ArrayList;
 
