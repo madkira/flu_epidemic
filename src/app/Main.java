@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author FILIOL DE RAIMOND-MICHEL Guillaume Will run the main program without GUI
  */
 public class Main {
-    public static void main (String[] args) {
+    public static void main (String[] args) throws IllegalAccessException, InstantiationException {
         ArrayList<Entity> entitys=new ArrayList<>();
         Map m = new Map(10, 10, 8);
         Duck d1=new Duck(Status.HEALTHY, false, m, 9, 1);
