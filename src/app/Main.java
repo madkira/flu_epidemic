@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Created by FILIOL DE RAIMOND-MICHEL Guillaume on 24/11/2015.
- * @author FILIOL DE RAIMOND-MICHEL Guillaume Will run the main program
+ * @author FILIOL DE RAIMOND-MICHEL Guillaume Will run the main program without GUI
  */
 public class Main {
     public static void main (String[] args) {
