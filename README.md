@@ -26,5 +26,6 @@ Les différentes contraintes client ont étées respectées, à savoir :
 ### Lancer le jeu
 
 ```sh
-$ METTRE LA COMMANDE
+$ chmod +x Flu.jar
+$ ./bash.sh
 ```
