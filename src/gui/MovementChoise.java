@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
  * Created by Raphael KUMAR on 1/5/16.
  */
 public class MovementChoise extends JPanel implements ActionListener {
-    private String four = Main.FOUR + " Mouvements";
-    private String eight = Main.EIGHT + " Mouvements";
+    private String four = Main.FOUR + " Nombre de Voisins";
+    private String eight = Main.EIGHT + " Nombre de Voisins";
     JRadioButton fourMovement;
     JRadioButton eightMovement;
 
