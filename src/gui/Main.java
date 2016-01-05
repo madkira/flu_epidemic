@@ -5,7 +5,21 @@ package gui;
  * @author Raphael KUMAR Will run the main program
  */
 public class Main {
+    protected static final int FPS_MIN = 0;
+    protected static final int FPS_MAX = 30;
+    protected static int ACTUAL_FPS =15;
+    protected static int KINDOFMOV = 4;
+    protected static final int FOUR = 4;
+    protected static final int EIGHT = 8;
 
+
+    public static void setActualFps(int actualFps) {
+        ACTUAL_FPS = actualFps;
+    }
+
+    public static void main(String[] args) {
+        new Initialisation();
+    }
 }
 
 /*
