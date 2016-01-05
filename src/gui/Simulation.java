@@ -39,9 +39,9 @@ public class Simulation extends JFrame {    // Colors used for empty locations.
         colors = new HashMap<>();
         //  stats = new FieldStats();
         colors.put(Person.class, Color.green);
-        colors.putIfAbsent(Duck.class, Color.orange);
-        colors.putIfAbsent(Chicken.class, Color.red);
-        colors.putIfAbsent(Pig.class, Color.pink);
+        colors.put(Duck.class, Color.orange);
+        colors.put(Chicken.class, Color.red);
+        colors.put(Pig.class, Color.pink);
 
 
         JComponent speedSlider = new SpeedSlider();
@@ -68,12 +68,13 @@ public class Simulation extends JFrame {    // Colors used for empty locations.
         for(int i = 0; i < Initialisation.DEFAULT_WIDTH; i++){
             for(int j = 0; j < Initialisation.DEFAULT_DEPTH; j++) {
                 if (m.getEntity(i,j)!= null){
-                    JButton square = new JButton(m.getEntity(i,j).getStatus().toString());
-                    square.setBackground(colors.get(m.getEntity(i,j)));
+                    JLabel square = new JLabel(m.getEntity(i,j).getStatus().toString());
+                    square.setBackground(colors.get(m.getEntity(i,j).getClass()));
+                    square.setOpaque(true);
                     theField.add(square);
                 }
                 else{
-                    JButton square = new JButton("");
+                    JLabel square = new JLabel();
                     square.setBackground(EMPTY_COLOR);
                     theField.add(square);
                 }
@@ -89,14 +90,14 @@ public class Simulation extends JFrame {    // Colors used for empty locations.
                 e.move(m);
                 e.update(m);
             }
-            viewField.removeAll();
             field = new GridLayout(Initialisation.DEFAULT_WIDTH, Initialisation.DEFAULT_DEPTH);
             theField.setLayout(field);
             for(int i = 0; i < Initialisation.DEFAULT_WIDTH; i++){
                 for(int j = 0; j < Initialisation.DEFAULT_DEPTH; j++) {
                     if (m.getEntity(i,j)!= null){
-                        JButton square = new JButton(m.getEntity(i,j).getStatus().toString());
-                        square.setBackground(colors.get(m.getEntity(i,j)));
+                        JLabel square = new JLabel(m.getEntity(i,j).getStatus().toString());
+                        square.setBackground(colors.get(m.getEntity(i,j).getClass()));
+                        square.setOpaque(true);
                         theField.add(square);
                     }
                     else{
@@ -108,12 +109,11 @@ public class Simulation extends JFrame {    // Colors used for empty locations.
             }
 
             viewField.add(theField);
-            add(viewField, BorderLayout.CENTER);
-            pack();
-            setVisible(true);
+            viewField.revalidate();
+            viewField.repaint();
 
             try {
-                //Thread.sleep(1000 / Main.ACTUAL_FPS);
+                Thread.sleep(1000 / Main.ACTUAL_FPS);
             } catch (Exception exc) {
             }
         }
