@@ -22,7 +22,7 @@ public class Main {
         Person P3=new Person(Status.HEALTHY, false ,m, 1, 2);
         Person P4=new Person(Status.HEALTHY, false , m, 2, 1);
         Person P5=new Person(Status.HEALTHY, false, m, 3, 1);
-        Person P6=new Person(Status.IMMUNE, false, m, 1, 3);
+        Person P6=new Person(Status.HEALTHY, false, m, 1, 3);
         while (!m.end()){
             for (Entity e : m.getList()){
                 e.move(m);
