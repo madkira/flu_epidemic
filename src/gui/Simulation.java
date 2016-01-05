@@ -88,26 +88,7 @@ public class Simulation extends JFrame {    // Colors used for empty locations.
                 e.move(m);
                 e.update(m);
             }
-
-            for(int i = 0; i < Initialisation.DEFAULT_WIDTH; i++){
-                for(int j = 0; j < Initialisation.DEFAULT_DEPTH; j++) {
-                    if (m.getEntity(i,j)!= null){
-                        JButton square = new JButton(m.getEntity(i,j).getStatus().toString());
-                        square.setBackground(colors.get(m.getEntity(i,j)));
-                        theField.add(square);
-                    }
-                    else{
-                        JButton square = new JButton("");
-                        square.setBackground(EMPTY_COLOR);
-                        theField.add(square);
-                    }
-                }
-            }
-
-            add(theField, BorderLayout.CENTER);
-            pack();
-            setVisible(true);
-
+            
             try {
                 //Thread.sleep(1000 / Main.ACTUAL_FPS);
             } catch (Exception exc) {
