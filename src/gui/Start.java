@@ -21,6 +21,13 @@ public class Start extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         init.closeInit();
-        new Simulation();
+        try {
+            new Simulation(Initialisation.DEFAULT_DEPTH, Initialisation.DEFAULT_WIDTH);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+
     }
 }

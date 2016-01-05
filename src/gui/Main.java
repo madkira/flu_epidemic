@@ -5,8 +5,8 @@ package gui;
  * @author Raphael KUMAR Will run the main program
  */
 public class Main {
-    protected static final int FPS_MIN = 0;
-    protected static final int FPS_MAX = 30;
+    protected static final int FPS_MIN = 1;
+    protected static final int FPS_MAX = 100;
     protected static int ACTUAL_FPS =15;
     protected static int KINDOFMOV = 4;
     protected static final int FOUR = 4;
@@ -21,8 +21,3 @@ public class Main {
         new Initialisation();
     }
 }
-
-/*
-    speed exec (radio bouton, au cours de l'exec)
-    4 / 8 voision (au debut)
- */
